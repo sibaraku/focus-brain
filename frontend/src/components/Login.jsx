@@ -27,6 +27,7 @@ const Login = ({ switchForm }) => {
   };
 
   return (
+    <div className="login-page">    
     <div className="login-container">
       <h2 className="form-title">Log In</h2>
 
@@ -65,7 +66,9 @@ const Login = ({ switchForm }) => {
         </a>
       </p>
     </div>
+    </div>
   );
 };
+
 
 export default Login;

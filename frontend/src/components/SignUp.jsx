@@ -41,6 +41,7 @@ const SignUp = ({ switchForm }) => {
   };
 
   return (
+    <div className="login-page">
     <div className="login-container">
       <h2 className="form-title">Sign Up</h2>
 
@@ -74,6 +75,7 @@ const SignUp = ({ switchForm }) => {
         Already have an account?{" "}
         <a href="#" onClick={(e) => { e.preventDefault(); switchForm(); }}>Log in</a>
       </p>
+    </div>
     </div>
   );
 };
