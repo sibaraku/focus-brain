@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Reusable input field component with optional password visibility toggle
 const InputField = ({ type, placeholder, icon, value, onChange }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 

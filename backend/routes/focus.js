@@ -2,6 +2,7 @@ import express from "express"
 import {verifyToken} from "../middleware/authMiddleware.js"
 import {startFocus,completeFocus,getStats,getHistory,clearHistory} from "../controllers/focus.js"
 
+// Routes for focus sessions: start, complete, stats, history, clear history
 const router = express.Router()
 
 router.post("/start",verifyToken,startFocus)

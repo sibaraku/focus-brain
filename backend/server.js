@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import focusRoutes from "./routes/focus.js";
 dotenv.config();
 
+// Main server file: sets up Express app, middleware, and routes
 const app = express();
 
 app.use(cors());

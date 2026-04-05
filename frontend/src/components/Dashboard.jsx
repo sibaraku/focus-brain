@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Dashboard component with focus timer, statistics, and history
 const Dashboard = () => {
   const [timer, setTimer] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionId, setSessionId] = useState(null);
   const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
+  const [bestDay, setBestDay] = useState({ date: "", minutes: 0 });
 
   useEffect(() => {
     const savedNickname = localStorage.getItem("nickname");
@@ -112,6 +114,7 @@ const Dashboard = () => {
 
       const data = await res.json();
       setHistory(data);
+      calculateBestDay(data);
     } catch (err) {
       console.error(err);
     }
@@ -131,6 +134,31 @@ const Dashboard = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const calculateBestDay = (history) => {
+    const dayMap = {};
+
+    history.forEach((item) => {
+      const day = new Date(item.start_time).toLocaleDateString();
+      if (!dayMap[day]) dayMap[day] = 0;
+      dayMap[day] += item.duration;
+    });
+
+    let bestDayDate = "";
+    let maxMinutes = 0;
+
+    for (const [day, minutes] of Object.entries(dayMap)) {
+      if (minutes > maxMinutes) {
+        maxMinutes = minutes;
+        bestDayDate = day;
+      }
+    }
+
+    setBestDay({
+      date: bestDayDate || "No data",
+      minutes: maxMinutes,
+    });
   };
 
   useEffect(() => {
@@ -164,6 +192,10 @@ const Dashboard = () => {
           <h2>Statistics</h2>
           <div className="stat-item">Total sessions: {stats.totalSessions}</div>
           <div className="stat-item">Total time: {stats.totalTime} min</div>
+          <h2>Best Day</h2>
+          <div className="stat-item">
+            {bestDay.date} — {bestDay.minutes} min
+          </div>
         </section>
 
         <section className="statistics">

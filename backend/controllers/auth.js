@@ -2,6 +2,7 @@ import { db } from "../db.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// Register and login functions for user authentication
 export const register = (req, res) => {
   const { email, password, nickname } = req.body;
   if (!nickname)

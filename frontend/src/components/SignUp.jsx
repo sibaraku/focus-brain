@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "./InputField";
 import { registerUser, loginUser } from "../api";
 
+// Sign-up component with nickname, email, password, confirm password fields, and link to switch to login form
 const SignUp = ({ switchForm }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 
+// Middleware to verify JWT token for protected routes
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
