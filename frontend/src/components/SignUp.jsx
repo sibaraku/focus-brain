@@ -8,7 +8,7 @@ const SignUp = ({ switchForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [nickname, setNickname] = useState("")
+  const [nickname, setNickname] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,12 +26,12 @@ const SignUp = ({ switchForm }) => {
         console.log("Auto login response:", loginData);
 
         if (loginData.token) {
-          localStorage.setItem("token", loginData.token)
-          localStorage.setItem("nickname", loginData.nickname)
+          localStorage.setItem("token", loginData.token);
+          localStorage.setItem("nickname", loginData.nickname);
           navigate("/dashboard");
         } else {
           alert("Registration successful, but auto-login failed");
-          switchForm(); 
+          switchForm();
         }
       } else {
         alert("Registration failed");
@@ -44,47 +44,57 @@ const SignUp = ({ switchForm }) => {
 
   return (
     <div className="login-page">
-    <div className="login-container">
-      <h2 className="form-title">Sign Up</h2>
+      <div className="login-container">
+        <h2 className="form-title">Sign Up</h2>
 
-      <form className="login-form" onSubmit={handleSubmit}>
-        <InputField
-          type="text"
-          placeholder="Nickname"
-          icon=""
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-        />
-        <InputField
-          type="email"
-          placeholder="Email address"
-          icon="mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <InputField
-          type="password"
-          placeholder="Password"
-          icon="lock"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <InputField
-          type="password"
-          placeholder="Confirm password"
-          icon="lock"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
+        <form className="login-form" onSubmit={handleSubmit}>
+          <InputField
+            type="text"
+            placeholder="Nickname"
+            icon=""
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <InputField
+            type="email"
+            placeholder="Email address"
+            icon="mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputField
+            type="password"
+            placeholder="Password"
+            icon="lock"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <InputField
+            type="password"
+            placeholder="Confirm password"
+            icon="lock"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
 
-        <button type="submit" className="login-button">Sign Up</button>
-      </form>
+          <button type="submit" className="login-button">
+            Sign Up
+          </button>
+        </form>
 
-      <p className="signup-prompt">
-        Already have an account?{" "}
-        <a href="#" onClick={(e) => { e.preventDefault(); switchForm(); }}>Log in</a>
-      </p>
-    </div>
+        <p className="signup-prompt">
+          Already have an account?{" "}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              switchForm();
+            }}
+          >
+            Log in
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

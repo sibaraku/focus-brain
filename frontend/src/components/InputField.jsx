@@ -18,7 +18,7 @@ const InputField = ({ type, placeholder, icon, value, onChange }) => {
 
       {type === "password" && (
         <i
-          onClick={() => setIsPasswordShown(prev => !prev)}
+          onClick={() => setIsPasswordShown((prev) => !prev)}
           className="material-symbols-rounded eye-icon"
         >
           {isPasswordShown ? "visibility" : "visibility_off"}

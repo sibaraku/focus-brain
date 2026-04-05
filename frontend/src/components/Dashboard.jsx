@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [timer, setTimer] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
-  const [sessionId, setSessionId] = useState(null)
+  const [sessionId, setSessionId] = useState(null);
   const [nickname, setNickname] = useState("");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedNickname = localStorage.getItem("nickname");
@@ -26,7 +26,6 @@ const Dashboard = () => {
     return `${m}:${s}`;
   };
 
-  // Таймер
   useEffect(() => {
     let interval;
     if (isRunning && timer > 0) {
@@ -35,14 +34,13 @@ const Dashboard = () => {
     return () => clearInterval(interval);
   }, [isRunning, timer]);
 
-  // авто завершение
   useEffect(() => {
     if (timer === 0 && sessionId) {
+      alert("Great work! Take a short break!");
       handleFinish();
     }
   }, [timer]);
 
-  // START
   const handleStart = async () => {
     try {
       const res = await fetch("http://localhost:5000/focus/start", {
@@ -61,15 +59,12 @@ const Dashboard = () => {
     }
   };
 
-  // button logout
-
   const handleLogout = () => {
-  localStorage.removeItem("token")
-  localStorage.removeItem("nickname")
-  navigate("/login")
-};
+    localStorage.removeItem("token");
+    localStorage.removeItem("nickname");
+    navigate("/login");
+  };
 
-  // FINISH
   const handleFinish = async () => {
     setIsRunning(false);
 
@@ -92,7 +87,6 @@ const Dashboard = () => {
     }
   };
 
-  // статистика
   const fetchStats = async () => {
     try {
       const res = await fetch("http://localhost:5000/focus/stats", {
@@ -108,7 +102,6 @@ const Dashboard = () => {
     }
   };
 
-  // история
   const fetchHistory = async () => {
     try {
       const res = await fetch("http://localhost:5000/focus/history", {
@@ -124,23 +117,21 @@ const Dashboard = () => {
     }
   };
 
-  // clear history
-
   const handleClearHistory = async () => {
-  try {
-    await fetch("http://localhost:5000/focus/history", {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
+    try {
+      await fetch("http://localhost:5000/focus/history", {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
 
-    fetchStats();
-    fetchHistory();
-  } catch (err) {
-    console.error(err);
-  }
-};
+      fetchStats();
+      fetchHistory();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     fetchStats();
@@ -171,20 +162,16 @@ const Dashboard = () => {
 
         <section className="statistics">
           <h2>Statistics</h2>
-          <div className="stat-item">
-            Total sessions: {stats.totalSessions}
-          </div>
-          <div className="stat-item">
-            Total time: {stats.totalTime} min
-          </div>
+          <div className="stat-item">Total sessions: {stats.totalSessions}</div>
+          <div className="stat-item">Total time: {stats.totalTime} min</div>
         </section>
 
         <section className="statistics">
           <h2>History</h2>
-          <div className="timer-buttons"> 
-          <button onClick={handleClearHistory} className="clear-history">
-            Clear History
-          </button>
+          <div className="timer-buttons">
+            <button onClick={handleClearHistory} className="clear-history">
+              Clear History
+            </button>
           </div>
           {history.map((item) => (
             <div key={item.id} className="stat-item">
