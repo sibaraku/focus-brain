@@ -9,22 +9,23 @@ const Login = ({ switchForm }) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const data = await loginUser(email, password);
+  try {
+    const data = await loginUser(email, password);
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        navigate("/dashboard");
-      } else {
-        alert(data.message || "Login failed");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error connecting to server");
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("nickname", data.nickname)
+      navigate("/dashboard");
+    } else {
+      alert(data.message || "Login failed");
     }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Error connecting to server");
+  }
+}
 
   return (
     <div className="login-page">    

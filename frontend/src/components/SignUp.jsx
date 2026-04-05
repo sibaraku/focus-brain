@@ -8,6 +8,7 @@ const SignUp = ({ switchForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [nickname, setNickname] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +18,7 @@ const SignUp = ({ switchForm }) => {
     }
 
     try {
-      const regData = await registerUser(email, password);
+      const regData = await registerUser(email, password, nickname);
       console.log("Register response:", regData);
 
       if (regData.message) {
@@ -25,7 +26,8 @@ const SignUp = ({ switchForm }) => {
         console.log("Auto login response:", loginData);
 
         if (loginData.token) {
-          localStorage.setItem("token", loginData.token);
+          localStorage.setItem("token", loginData.token)
+          localStorage.setItem("nickname", loginData.nickname)
           navigate("/dashboard");
         } else {
           alert("Registration successful, but auto-login failed");
@@ -46,6 +48,13 @@ const SignUp = ({ switchForm }) => {
       <h2 className="form-title">Sign Up</h2>
 
       <form className="login-form" onSubmit={handleSubmit}>
+        <InputField
+          type="text"
+          placeholder="Nickname"
+          icon=""
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
         <InputField
           type="email"
           placeholder="Email address"

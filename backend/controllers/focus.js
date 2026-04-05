@@ -67,3 +67,19 @@ export const getHistory = (req, res) => {
     res.json(data);
   });
 };
+
+// CLEAR HISTORY
+export const clearHistory = (req, res) => {
+  const userId = req.userId;
+
+  const sql = `
+    DELETE FROM focus_sessions
+    WHERE user_id = ?
+  `;
+
+  db.query(sql, [userId], (err) => {
+    if (err) return res.status(500).json(err);
+
+    res.json({ message: "History cleared" });
+  });
+};

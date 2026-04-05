@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
   const [timer, setTimer] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
-  const [sessionId, setSessionId] = useState(null);
+  const [sessionId, setSessionId] = useState(null)
+  const [nickname, setNickname] = useState("");
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const savedNickname = localStorage.getItem("nickname");
+    if (savedNickname) setNickname(savedNickname);
+  }, []);
 
   const [stats, setStats] = useState({
     totalSessions: 0,
@@ -52,6 +60,14 @@ const Dashboard = () => {
       console.error(err);
     }
   };
+
+  // button logout
+
+  const handleLogout = () => {
+  localStorage.removeItem("token")
+  localStorage.removeItem("nickname")
+  navigate("/login")
+};
 
   // FINISH
   const handleFinish = async () => {
@@ -108,6 +124,24 @@ const Dashboard = () => {
     }
   };
 
+  // clear history
+
+  const handleClearHistory = async () => {
+  try {
+    await fetch("http://localhost:5000/focus/history", {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+
+    fetchStats();
+    fetchHistory();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
   useEffect(() => {
     fetchStats();
     fetchHistory();
@@ -117,9 +151,11 @@ const Dashboard = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <h1>BrainFocus</h1>
-        <div className="user-info">
-          <span>Welcome, Name!</span>
-          <button className="logout">Logout</button>
+        <div className="user-info timer-buttons">
+          <span className="welcome-text">Welcome, {nickname}!</span>
+          <button className="logout" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </header>
 
@@ -145,6 +181,11 @@ const Dashboard = () => {
 
         <section className="statistics">
           <h2>History</h2>
+          <div className="timer-buttons"> 
+          <button onClick={handleClearHistory} className="clear-history">
+            Clear History
+          </button>
+          </div>
           {history.map((item) => (
             <div key={item.id} className="stat-item">
               {new Date(item.start_time).toLocaleString()} — {item.duration} min

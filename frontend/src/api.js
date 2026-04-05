@@ -1,10 +1,10 @@
 const BASE_URL = "http://localhost:5000/auth";
 
-export const registerUser = async (email, password) => {
+export const registerUser = async (email, password, nickname) => {
   const res = await fetch(`${BASE_URL}/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, nickname }),
   });
   return res.json();
 };
