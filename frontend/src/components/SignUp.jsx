@@ -52,7 +52,7 @@ const SignUp = ({ switchForm }) => {
           <InputField
             type="text"
             placeholder="Nickname"
-            icon=""
+            icon="person"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
