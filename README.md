@@ -7,20 +7,30 @@ BrainFocus is a web application that helps users track focus sessions, manage th
 Features
 
 User registration and login with JWT authentication.
+
 Focus session management: start, complete, view statistics, and history.
+
 Front-end dashboard with focus timer, total sessions, total time, best day, and history list.
+
 Clear session history.
+
 Secure password storage with bcrypt.
+
 
 ---
 
 Tech Stack
 
 Backend: Node.js, Express.js
+
 Database: MySQL
+
 Authentication: JWT (JSON Web Token)
+
 Front-end: React, react-router-dom
+
 Styling: CSS
+
 
 ---
 
@@ -31,11 +41,13 @@ Installation
 1. Clone the repository:
 
 git clone <repository_url>
+
 cd focus-brain
 
 2. Install dependencies for backend:
 
 cd backend
+
 npm install
 
 3. Set up the MySQL database
@@ -47,7 +59,9 @@ node server.js
 5. Install dependencies for frontend:
 
 cd frontend
+
 npm install
+
 npm run dev
 
 7. Open http://localhost:5173 in your browser
@@ -78,9 +92,13 @@ Focus Sessions (Protected routes, require Authorization header with Bearer token
 Front-end Components
 
 App.jsx - Main component toggling Login/SignUp forms
+
 Login.jsx / SignUp.jsx - Forms with client-side validation
+
 Dashboard.jsx - Focus timer, statistics, best day, history, and clear history button
+
 InputField.jsx - Reusable input component with password visibility toggle
+
 
 ---
 
@@ -112,7 +130,10 @@ CREATE TABLE focus_sessions (
 Security
 
 Passwords are hashed using bcrypt
+
 All protected routes require JWT authentication
+
 SQL queries use parameterized statements to prevent SQL injection
+
 CORS enabled (should restrict to trusted domains in production)
 
