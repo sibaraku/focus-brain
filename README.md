@@ -84,7 +84,7 @@ Focus Sessions (Protected routes, require Authorization header with Bearer token
 | POST   | `/focus/start`        | -    | Starts a new focus session            |
 | POST   | `/focus/:id/complete` | -    | Marks a focus session as completed    |
 | GET    | `/focus/stats`        | -    | Returns total sessions and total time |
-| GET    | `/focus/history`      | -    | Returns last 10 completed sessions    |
+| GET    | `/focus/history`      | -    | Returns completed sessions            |
 | DELETE | `/focus/history`      | -    | Deletes all sessions for the user     |
 
 ---
